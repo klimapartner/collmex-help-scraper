@@ -5,7 +5,7 @@
 // @description  Erweiterungen für Collmex
 // @author       Holger Will
 // @match        https://www.collmex.de/cgi-bin/cgi.exe?*,*,*
-// @updateURL    http://admin.klimapartner.de/public/userscripts/help.user.js
+// @updateURL    https://rawgit.com/klimapartner/collmex-help-scraper/master/collmex-help-scraper.user.js
 // @require      http://code.jquery.com/jquery-latest.js
 // @grant        GM_addStyle
 // ==/UserScript==
