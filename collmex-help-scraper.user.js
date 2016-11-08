@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Collmex Api Description Scraper
 // @namespace    http://klimapartner.de/
-// @version      0.3.0
+// @version      0.5.0
 // @description  Erweiterungen für Collmex
 // @author       Holger Will
 // @match        https://www.collmex.de/cgi-bin/cgi.exe?*,*,*
