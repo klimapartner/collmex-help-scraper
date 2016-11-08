@@ -17,6 +17,7 @@ GM_addStyle(".json_value{color:orange;font-weight:700}");
 GM_addStyle(".json_name{color:white;}");
 GM_addStyle(".json_template_div{width:780px;border:1px solid #ddd;padding:10px;background:#333;font-family:monospace;color:gray}");
 GM_addStyle(".sql_template_div{width:780px;border:1px solid #ddd;padding:10px;background:#333;font-family:monospace;color:gray}");
+GM_addStyle(".list_template_div{width:780px;border:1px solid #ddd;padding:10px;background:#333;font-family:monospace;color:gray}");
 GM_addStyle(".json_token1{color:red;}");
 GM_addStyle(".json_token2{color:lightgreen;}");
 GM_addStyle(".json_token3{color:turquoise;}");
@@ -47,7 +48,7 @@ function createHelpMenu(){
     mm.appendChild(b);
 
     b=document.createElement("button");
-    b.innerText="CSV Template";
+    b.innerText="Property List";
     b.addEventListener("click",showCSV,true);
     mm.appendChild(b);
 
@@ -60,30 +61,27 @@ function createHelpMenu(){
     b.innerText="SQL";
     b.addEventListener("click",showSQL,true);
     mm.appendChild(b);
-  // create CVS Template
-   /* $("<div id='csv_template_div'>hallo</div>").insertAfter("table.help");
-    $("#csv_template_div").css({"display":"none","width":"780px","border":"1px solid #ddd","padding":"10px","background":"#333"});
-    var st="";
-    var li=$("table.help")[0].getElementsByTagName("tr");
-    st+="<span style='font-weight:700;color:orange'>"+li[1].getElementsByTagName("td")[4].innerText.split(" ")[1]+"</span>";
-    for(var i=2;i<li.length;i++){
-        st+="<span style='color:white;font-weight:700'>;</span><span style='color:grey'> ["+li[i].getElementsByTagName("td")[1].innerText+"] </span>";
+    
+    //List
+  var tables=$("table.help");
+    for(var t=0;t<tables.length;t++){
+        $("<div class='list_template_div' id='ltd_"+t+"'>Hallo</div>").insertAfter(tables[t]);
+        $("#ltd_"+t).css({"display":"none"});
+        var arr=[];
+        li=tables[t].getElementsByTagName("tr");
+        for(i=2;i<li.length;i++){
+            if(li[i].getElementsByTagName("td").length>1){
+                var name=li[i].getElementsByTagName("td")[1].innerText;
+                name=name.replace(/-/g,"_");
+                name=name.replace(/ /g,"_");
+                arr.push(name);
+            }
+        }
+        var st=jsv("("+arr.join(",")+")");
+        $("#ltd_"+t).html(st);
     }
-    $("#csv_template_div").html(st);*/
 
-// create SQL Template
-    /*
-    $("<div id='sql_template_div'>Hallo</div>").insertAfter("table.help");
-    $("#sql_template_div").css({"display":"none","width":"780px","border":"1px solid #ddd","padding":"10px","background":"#333"});
-    st="";
-    li=$("table.help")[0].getElementsByTagName("tr");
-    st+="<span class='sql'>CREATE TABLE</span> <span class='sqltext'>"+li[1].getElementsByTagName("td")[4].innerText.split(" ")[1]+"</span><br/><span class='sqltext'>(</span><br/>";
-    st+="<span class='sqltext'>"+li[2].getElementsByTagName("td")[1].innerText+" </span><span class='sql'>"+lookup[li[2].getElementsByTagName("td")[2].innerText]+""+getSize(li[2].getElementsByTagName("td")[2].innerText,li[2].getElementsByTagName("td")[3].innerText)+"</span>";
-    for(i=3;i<li.length;i++){
-        st+="<span class='sqltext'>,</span><br/><span class='sqltext'>"+li[i].getElementsByTagName("td")[1].innerText+" </span><span class='sql'>"+lookup[li[i].getElementsByTagName("td")[2].innerText]+""+getSize(li[i].getElementsByTagName("td")[2].innerText,li[i].getElementsByTagName("td")[3].innerText)+"</span>";
-    }
-    st+="<br/><span class='sqltext'>)</span>;";
-    $("#sql_template_div").html(st);*/
+//SQL
     var tables=$("table.help");
     for(var t=0;t<tables.length;t++){
         $("<div class='sql_template_div' id='std_"+t+"'>Hallo</div>").insertAfter(tables[t]);
@@ -113,7 +111,6 @@ function createHelpMenu(){
         }
         st+=`</div>${jst(")",2)}`;
         $("#std_"+t).html(st);
-        console.log($("#std_"+t));
     }
  // create JSON Template
     var tables=$("table.help");
@@ -140,7 +137,6 @@ function createHelpMenu(){
         }
         st+=`</div>${jst("}",2)}`;
         $("#jtd_"+t).html(st);
-        console.log($("#jtd_"+t));
     }
 }
 
@@ -166,7 +162,7 @@ function showTabelle(){
 }
 function showCSV(){
     hideAll();
-    $("#csv_template_div").css({"display":"block"});
+    $(".list_template_div").css({"display":"block"});
 }
 function showSQL(){
     hideAll();
@@ -178,7 +174,7 @@ function showJSON(){
 }
 function hideAll(){
     $("table.help").css({"display":"none"});
-    $("#csv_template_div").css({"display":"none"});
+    $(".list_template_div").css({"display":"none"});
     $(".sql_template_div").css({"display":"none"});
     $(".json_template_div").css({"display":"none"});
 }
