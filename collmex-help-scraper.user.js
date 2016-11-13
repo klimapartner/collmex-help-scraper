@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Collmex Api Description Scraper
 // @namespace    http://klimapartner.de/
-// @version      0.6.1
+// @version      0.6.2
 // @description  Erweiterungen für Collmex
 // @author       Holger Will
 // @match        https://www.collmex.de/cgi-bin/cgi.exe?*,*,*
@@ -68,10 +68,15 @@ function createHelpMenu(){
         $("<div class='list_template_div' id='ltd_"+t+"'>Hallo</div>").insertAfter(tables[t]);
         $("#ltd_"+t).css({"display":"none"});
         var arr=[];
+        var rescount=0
         li=tables[t].getElementsByTagName("tr");
-        for(i=2;i<li.length;i++){
+        for(i=1;i<li.length;i++){
             if(li[i].getElementsByTagName("td").length>1){
                 var name=li[i].getElementsByTagName("td")[1].innerText;
+                if(name=="Reserviert"){
+                    rescount++;
+                    name="Reserviert"+rescount;
+                }
                 name=name.replace(/-/g,"_");
                 name=name.replace(/ /g,"_");
                 arr.push(name);
